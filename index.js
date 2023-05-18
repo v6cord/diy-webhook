@@ -56,6 +56,10 @@ while (true) {
     const eventObj = events.data.filter(obj => { return obj.id === id })[0];
 
     const message = (eventObj => {
+      if (configFile.ignoreEvents.indexOf(eventObj.type) > -1) {
+        return;
+      }
+
       switch (eventObj.type) {
         case 'PushEvent':
           return formatter.formatPushEvent(eventObj);

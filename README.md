@@ -22,12 +22,14 @@ All configuration goes in `config.json`. It looks something like this:
   "repoOwner": "TerryCavanagh",
   "repoName": "VVVVVV",
   "webhookUrl": "DISCORD_WEBHOOK_URL_HERE",
-  "delaySecs": 10
+  "delaySecs": 10,
+  "ignoreEvents": ["WatchEvent", "ForkEvent"]
 }
 ```
 
 This will act as a webhook for the
-[TerryCavanagh/VVVVVV](https://github.com/TerryCavanagh/VVVVVV) repo.
+[TerryCavanagh/VVVVVV](https://github.com/TerryCavanagh/VVVVVV) repo
+while ignoring forks and watches (actually stars).
 
 ## Running
 
