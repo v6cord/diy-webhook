@@ -170,3 +170,18 @@ export function formatPullRequestReviewCommentEvent(eventObj) {
 
   return message;
 }
+
+export function formatWatchEvent(eventObj) {
+  // apparently these are people starring, not watching the repository
+  if (eventObj.payload.action !== 'started') {
+    console.log(`Ignoring watch event ${eventObj.id} (${eventObj.payload.action})`);
+    return;
+  }
+
+  const message = new MessageBuilder()
+    .setTitle(`[${eventObj.repo.name}] New star added`)
+    .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
+    .setURL(`${BASE}/${eventObj.repo.name}`);
+
+  return message;
+}
