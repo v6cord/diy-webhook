@@ -1,0 +1,12 @@
+{
+  "type": "module",
+  "name": "diy-webhook",
+  "version": "1.0.0",
+  "description": "DIY Discord webhook for public GitHub repositories without collaborator access",
+  "main": "index.js",
+  "author": "Info Teddy",
+  "dependencies": {
+    "discord-webhook-node": "^1.1.8",
+    "octokit": "^2.0.14"
+  }
+}
