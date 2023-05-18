@@ -11,7 +11,9 @@ function delay(time) {
 
 const configFile = JSON.parse(fs.readFileSync('./config.json'));
 
-const octokit = new Octokit();
+const octokit = new Octokit({
+  auth: configFile.githubAuth
+});
 const hook = new Webhook(configFile.webhookUrl);
 
 const log = console.log;

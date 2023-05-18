@@ -23,7 +23,8 @@ All configuration goes in `config.json`. It looks something like this:
   "repoName": "VVVVVV",
   "webhookUrl": "DISCORD_WEBHOOK_URL_HERE",
   "delaySecs": 10,
-  "ignoreEvents": ["WatchEvent", "ForkEvent"]
+  "ignoreEvents": ["WatchEvent", "ForkEvent"],
+  "githubAuth": "GITHUB_TOKEN_HERE"
 }
 ```
 
