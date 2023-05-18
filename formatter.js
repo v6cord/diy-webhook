@@ -2,6 +2,16 @@ import { MessageBuilder } from 'discord-webhook-node';
 
 const BASE = 'https://github.com';
 
+function truncateString(string, length) {
+  if (string.length <= length) {
+    return string;
+  }
+
+  string = string.substr(0, length - 4);
+  return string.substr(0, string.lastIndexOf(' ')) + ' ...';
+}
+
+
 export function formatPushEvent(eventObj) {
   const message = new MessageBuilder()
     .setColor('#7289da');
@@ -37,6 +47,36 @@ export function formatPushEvent(eventObj) {
   }
 
   message.setDescription(lines.join('\n'));
+
+  return message;
+}
+
+export function formatIssuesEvent(eventObj) {
+  switch (eventObj.payload.action) {
+    case 'opened':
+      return formatIssueOpenedEvent(eventObj);
+    case 'closed':
+      return formatIssueClosedEvent(eventObj);
+  }
+  console.log(`Ignoring issue event ${eventObj.id} (${eventObj.payload.action})`);
+}
+
+function formatIssueOpenedEvent(eventObj) {
+  const message = new MessageBuilder()
+    .setColor('#eb6420')
+    .setTitle(`[${eventObj.repo.name}] Issue opened: #${eventObj.payload.issue.number} ${eventObj.payload.issue.title}`)
+    .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
+    .setURL(eventObj.payload.issue.html_url)
+    .setDescription(truncateString(eventObj.payload.issue.body, 500));
+
+  return message;
+}
+
+function formatIssueClosedEvent(eventObj) {
+  const message = new MessageBuilder()
+    .setTitle(`[${eventObj.repo.name}] Issue closed: #${eventObj.payload.issue.number} ${eventObj.payload.issue.title}`)
+    .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
+    .setURL(eventObj.payload.issue.html_url);
 
   return message;
 }

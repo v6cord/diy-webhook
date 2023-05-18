@@ -57,12 +57,14 @@ while (true) {
   for (const id of newEventIds) {
     const eventObj = events.data.filter(obj => { return obj.id === id })[0];
 
-    var message = null;
-    switch (eventObj.type) {
-      case 'PushEvent':
-        message = formatter.formatPushEvent(eventObj);
-        break;
-    }
+    const message = (eventObj => {
+      switch (eventObj.type) {
+        case 'PushEvent':
+          return formatter.formatPushEvent(eventObj);
+        case 'IssuesEvent':
+          return formatter.formatIssuesEvent(eventObj);
+      }
+    })(eventObj);
 
     if (message) {
       hook.send(message);
