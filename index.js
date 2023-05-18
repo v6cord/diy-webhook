@@ -42,13 +42,11 @@ while (true) {
   }
 
   for (const eventObj of events.data) {
-    console.log(`Event ${eventObj.id}: ${eventObj.type}`);
-
     currentEventIds.push(eventObj.id);
 
     const index = seenEventIds.indexOf(eventObj.id);
     if (index < 0) {
-      console.log(`Event ${eventObj.id} is new`);
+      console.log(`Event ${eventObj.id} (${eventObj.type}) is new`);
       newEventIds.push(eventObj.id);
       seenEventIds.push(eventObj.id);
     }
