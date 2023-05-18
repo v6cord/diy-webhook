@@ -3,6 +3,10 @@ import { MessageBuilder } from 'discord-webhook-node';
 const BASE = 'https://github.com';
 
 function truncateString(string, length) {
+  if (!string) {
+    return '';
+  }
+
   if (string.length <= length) {
     return string;
   }
@@ -151,7 +155,7 @@ export function formatPullRequestReviewEvent(eventObj) {
     .setTitle(`[${eventObj.repo.name}] Pull request review submitted: #${eventObj.payload.pull_request.number} ${eventObj.payload.pull_request.title}`)
     .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
     .setURL(eventObj.payload.review.html_url)
-    .setDescription(truncateString(eventObj.payload.review.body || '', 500));
+    .setDescription(truncateString(eventObj.payload.review.body, 500));
 
   return message;
 }
