@@ -14,6 +14,12 @@ const configFile = JSON.parse(fs.readFileSync('./config.json'));
 const octokit = new Octokit();
 const hook = new Webhook(configFile.webhookUrl);
 
+const log = console.log;
+
+console.log = function() {
+    log.apply(console, [new Date(), ...arguments]);
+};
+
 var initialized = false;
 
 
