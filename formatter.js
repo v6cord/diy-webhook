@@ -194,3 +194,17 @@ export function formatForkEvent(eventObj) {
 
   return message;
 }
+
+export function formatReleaseEvent(eventObj) {
+  if (eventObj.payload.action !== 'published') {
+    console.log(`Ignoring release event ${eventObj.id} (${eventObj.payload.action}`);
+    return;
+  }
+
+  const message = new MessageBuilder()
+    .setTitle(`[${eventObj.repo.name}] New release published: ${eventObj.payload.release.tag_name}`)
+    .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
+    .setURL(eventObj.payload.release.html_url);
+
+  return message;
+}
