@@ -132,7 +132,7 @@ function formatPullRequestComment(eventObj) {
 
 function formatIssueComment(eventObj) {
   const message = new MessageBuilder()
-    .setColor('#eb6420')
+    .setColor('#e68d60')
     .setTitle(`[${eventObj.repo.name}] New comment on issue #${eventObj.payload.issue.number}: ${eventObj.payload.issue.title}`)
     .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
     .setURL(eventObj.payload.comment.html_url)
