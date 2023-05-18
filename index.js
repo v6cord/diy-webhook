@@ -63,6 +63,8 @@ while (true) {
           return formatter.formatPushEvent(eventObj);
         case 'IssuesEvent':
           return formatter.formatIssuesEvent(eventObj);
+        case 'PullRequestEvent':
+          return formatter.formatPullRequestEvent(eventObj);
       }
     })(eventObj);
 

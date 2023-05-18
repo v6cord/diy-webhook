@@ -80,3 +80,33 @@ function formatIssueClosedEvent(eventObj) {
 
   return message;
 }
+
+export function formatPullRequestEvent(eventObj) {
+  switch (eventObj.payload.action) {
+    case 'opened':
+      return formatPullRequestOpenedEvent(eventObj);
+    case 'closed':
+      return formatPullRequestClosedEvent(eventObj);
+  }
+  console.log(`Ignoring pull request event ${eventObj.id} (${eventObj.payload.action})`);
+}
+
+function formatPullRequestOpenedEvent(eventObj) {
+  const message = new MessageBuilder()
+    .setColor('#009800')
+    .setTitle(`[${eventObj.repo.name}] Pull request opened: #${eventObj.payload.pull_request.number} ${eventObj.payload.pull_request.title}`)
+    .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
+    .setURL(eventObj.payload.pull_request.html_url)
+    .setDescription(truncateString(eventObj.payload.pull_request.body, 500));
+
+  return message;
+}
+
+function formatPullRequestClosedEvent(eventObj) {
+  const message = new MessageBuilder()
+    .setTitle(`[${eventObj.repo.name}] Pull request closed: #${eventObj.payload.pull_request.number} ${eventObj.payload.pull_request.title}`)
+    .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
+    .setURL(eventObj.payload.pull_request.html_url);
+
+  return message;
+}
