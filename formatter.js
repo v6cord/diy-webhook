@@ -110,3 +110,33 @@ function formatPullRequestClosedEvent(eventObj) {
 
   return message;
 }
+
+export function formatIssueCommentEvent(eventObj) {
+  // GitHub considers issues to be the same as pull requests in this case
+  if (eventObj.payload.issue.pull_request) {
+    return formatPullRequestComment(eventObj);
+  }
+  return formatIssueComment(eventObj);
+}
+
+function formatPullRequestComment(eventObj) {
+  const message = new MessageBuilder()
+    .setColor('#bfe5bf')
+    .setTitle(`[${eventObj.repo.name}] New comment on pull request #${eventObj.payload.issue.number}: ${eventObj.payload.issue.title}`)
+    .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
+    .setURL(eventObj.payload.comment.html_url)
+    .setDescription(truncateString(eventObj.payload.comment.body, 500));
+
+  return message;
+}
+
+function formatIssueComment(eventObj) {
+  const message = new MessageBuilder()
+    .setColor('#eb6420')
+    .setTitle(`[${eventObj.repo.name}] New comment on issue #${eventObj.payload.issue.number}: ${eventObj.payload.issue.title}`)
+    .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
+    .setURL(eventObj.payload.comment.html_url)
+    .setDescription(truncateString(eventObj.payload.comment.body, 500));
+
+  return message;
+}
