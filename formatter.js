@@ -155,3 +155,18 @@ export function formatPullRequestReviewEvent(eventObj) {
 
   return message;
 }
+
+export function formatPullRequestReviewCommentEvent(eventObj) {
+  if (eventObj.payload.action !== 'created') {
+    console.log(`Ignoring pull request review comment event ${eventObj.id} (${eventObj.payload.action})`);
+    return;
+  }
+
+  const message = new MessageBuilder()
+    .setTitle(`[${eventObj.repo.name}] New review comment on pull request #${eventObj.payload.pull_request.number} ${eventObj.payload.pull_request.title}`)
+    .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
+    .setURL(eventObj.payload.comment.html_url)
+    .setDescription(truncateString(eventObj.payload.comment.body, 500));
+
+  return message;
+}
