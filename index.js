@@ -65,6 +65,8 @@ while (true) {
           return formatter.formatPullRequestEvent(eventObj);
         case 'IssueCommentEvent':
           return formatter.formatIssueCommentEvent(eventObj);
+        case 'PullRequestReviewEvent':
+          return formatter.formatPullRequestReviewEvent(eventObj);
       }
     })(eventObj);
 

@@ -140,3 +140,18 @@ function formatIssueComment(eventObj) {
 
   return message;
 }
+
+export function formatPullRequestReviewEvent(eventObj) {
+  if (eventObj.payload.action !== 'created') {
+    console.log(`Ignoring pull request review event ${eventObj.id} (${eventObj.payload.action})`);
+    return;
+  }
+
+  const message = new MessageBuilder()
+    .setTitle(`[${eventObj.repo.name}] Pull request review submitted: #${eventObj.payload.pull_request.number} ${eventObj.payload.pull_request.title}`)
+    .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
+    .setURL(eventObj.payload.review.html_url)
+    .setDescription(truncateString(eventObj.payload.review.body || '', 500));
+
+  return message;
+}
