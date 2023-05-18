@@ -185,3 +185,12 @@ export function formatWatchEvent(eventObj) {
 
   return message;
 }
+
+export function formatForkEvent(eventObj) {
+  const message = new MessageBuilder()
+    .setTitle(`[${eventObj.repo.name}] Fork created: ${eventObj.payload.forkee.full_name}`)
+    .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
+    .setURL(eventObj.payload.forkee.html_url);
+
+  return message;
+}
