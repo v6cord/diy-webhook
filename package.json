@@ -2,7 +2,7 @@
   "type": "module",
   "name": "diy-webhook",
   "version": "1.0.0",
-  "description": "DIY Discord webhook for public GitHub repositories without collaborator access",
+  "description": "DIY Discord webhook for public GitHub repositories without admin access",
   "main": "index.js",
   "author": "Info Teddy",
   "dependencies": {

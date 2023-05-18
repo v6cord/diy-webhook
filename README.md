@@ -1,7 +1,7 @@
 # DIY Webhook
 
-Discord webhooks for public GitHub repositories without needing
-collaborator access to them.
+Discord webhooks for public GitHub repositories without needing admin
+access to them.
 
 ## Installation
 
