@@ -61,6 +61,8 @@ export function formatIssuesEvent(eventObj) {
       return formatIssueOpenedEvent(eventObj);
     case 'closed':
       return formatIssueClosedEvent(eventObj);
+    case 'reopened':
+      return formatIssueReopenedEvent(eventObj);
   }
   console.log(`Ignoring issue event ${eventObj.id} (${eventObj.payload.action})`);
 }
@@ -79,6 +81,15 @@ function formatIssueOpenedEvent(eventObj) {
 function formatIssueClosedEvent(eventObj) {
   const message = new MessageBuilder()
     .setTitle(`[${eventObj.repo.name}] Issue closed: #${eventObj.payload.issue.number} ${eventObj.payload.issue.title}`)
+    .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
+    .setURL(eventObj.payload.issue.html_url);
+
+  return message;
+}
+
+function formatIssueReopenedEvent(eventObj) {
+  const message = new MessageBuilder()
+    .setTitle(`[${eventObj.repo.name}] Issue reopened: #${eventObj.payload.issue.number} ${eventObj.payload.issue.title}`)
     .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
     .setURL(eventObj.payload.issue.html_url);
 
