@@ -34,6 +34,10 @@ export function formatPushEvent(eventObj) {
   var embedUrl = '';
   var lines = [];
   for (const commit of eventObj.payload.commits) {
+    if (lines.length >= 5) {
+      break;
+    }
+
     const shortSha = commit.sha.substr(0, 7);
     const url = `${BASE}/${eventObj.repo.name}/commit/${commit.sha}`;
     const title = truncateString(commit.message.split('\n')[0], 50);
