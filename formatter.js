@@ -238,3 +238,29 @@ export function formatReleaseEvent(eventObj) {
 
   return message;
 }
+
+export function formatCreateEvent(eventObj) {
+  switch (eventObj.payload.ref_type) {
+    case 'tag':
+      return formatTagCreatedEvent(eventObj);
+    case 'branch':
+      return formatBranchCreatedEvent(eventObj);
+  }
+  console.log(`Ignoring create event ${eventObj.id} (${eventObj.payload.ref_type})`);
+}
+
+function formatTagCreatedEvent(eventObj) {
+  const message = new MessageBuilder()
+    .setTitle(`[${eventObj.repo.name}] New tag created: ${eventObj.payload.ref}`)
+    .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`);
+
+  return message;
+}
+
+function formatBranchCreatedEvent(eventObj) {
+  const message = new MessageBuilder()
+    .setTitle(`[${eventObj.repo.name}] New branch created: ${eventObj.payload.ref}`)
+    .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`);
+
+  return message;
+}

@@ -87,6 +87,8 @@ while (true) {
           return formatter.formatForkEvent(eventObj);
         case 'ReleaseEvent':
           return formatter.formatReleaseEvent(eventObj);
+        case 'CreateEvent':
+          return formatter.formatCreateEvent(eventObj);
       }
     })(eventObj);
 
