@@ -102,6 +102,8 @@ export function formatPullRequestEvent(eventObj) {
       return formatPullRequestOpenedEvent(eventObj);
     case 'closed':
       return formatPullRequestClosedEvent(eventObj);
+    case 'reopened':
+      return formatPullRequestReopenedEvent(eventObj);
   }
   console.log(`Ignoring pull request event ${eventObj.id} (${eventObj.payload.action})`);
 }
@@ -120,6 +122,15 @@ function formatPullRequestOpenedEvent(eventObj) {
 function formatPullRequestClosedEvent(eventObj) {
   const message = new MessageBuilder()
     .setTitle(`[${eventObj.repo.name}] Pull request closed: #${eventObj.payload.pull_request.number} ${eventObj.payload.pull_request.title}`)
+    .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
+    .setURL(eventObj.payload.pull_request.html_url);
+
+  return message;
+}
+
+function formatPullRequestReopenedEvent(eventObj) {
+  const message = new MessageBuilder()
+    .setTitle(`[${eventObj.repo.name}] Pull request reopened: #${eventObj.payload.pull_request.number} ${eventObj.payload.pull_request.title}`)
     .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
     .setURL(eventObj.payload.pull_request.html_url);
 
