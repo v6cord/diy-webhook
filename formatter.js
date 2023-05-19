@@ -36,7 +36,7 @@ export function formatPushEvent(eventObj) {
   for (const commit of eventObj.payload.commits) {
     const shortSha = commit.sha.substr(0, 7);
     const url = `${BASE}/${eventObj.repo.name}/commit/${commit.sha}`;
-    const title = commit.message.split('\n')[0];
+    const title = truncateString(commit.message.split('\n')[0], 50);
     lines.push(`[\`${shortSha}\`](${url}) ${title} - ${commit.author.name}`);
 
     if (eventObj.payload.commits.length === 1) {
