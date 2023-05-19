@@ -72,9 +72,11 @@ export function formatIssuesEvent(eventObj) {
 }
 
 function formatIssueOpenedEvent(eventObj) {
+  const title = truncateString(eventObj.payload.issue.title, 150);
+
   const message = new MessageBuilder()
     .setColor('#eb6420')
-    .setTitle(`[${eventObj.repo.name}] Issue opened: #${eventObj.payload.issue.number} ${eventObj.payload.issue.title}`)
+    .setTitle(`[${eventObj.repo.name}] Issue opened: #${eventObj.payload.issue.number} ${title}`)
     .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
     .setURL(eventObj.payload.issue.html_url)
     .setDescription(truncateString(eventObj.payload.issue.body, 500));
@@ -83,8 +85,10 @@ function formatIssueOpenedEvent(eventObj) {
 }
 
 function formatIssueClosedEvent(eventObj) {
+  const title = truncateString(eventObj.payload.issue.title, 150);
+
   const message = new MessageBuilder()
-    .setTitle(`[${eventObj.repo.name}] Issue closed: #${eventObj.payload.issue.number} ${eventObj.payload.issue.title}`)
+    .setTitle(`[${eventObj.repo.name}] Issue closed: #${eventObj.payload.issue.number} ${title}`)
     .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
     .setURL(eventObj.payload.issue.html_url);
 
@@ -92,8 +96,10 @@ function formatIssueClosedEvent(eventObj) {
 }
 
 function formatIssueReopenedEvent(eventObj) {
+  const title = truncateString(eventObj.payload.issue.title, 150);
+
   const message = new MessageBuilder()
-    .setTitle(`[${eventObj.repo.name}] Issue reopened: #${eventObj.payload.issue.number} ${eventObj.payload.issue.title}`)
+    .setTitle(`[${eventObj.repo.name}] Issue reopened: #${eventObj.payload.issue.number} ${title}`)
     .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
     .setURL(eventObj.payload.issue.html_url);
 
@@ -113,9 +119,11 @@ export function formatPullRequestEvent(eventObj) {
 }
 
 function formatPullRequestOpenedEvent(eventObj) {
+  const title = truncateString(eventObj.payload.pull_request.title, 150);
+
   const message = new MessageBuilder()
     .setColor('#009800')
-    .setTitle(`[${eventObj.repo.name}] Pull request opened: #${eventObj.payload.pull_request.number} ${eventObj.payload.pull_request.title}`)
+    .setTitle(`[${eventObj.repo.name}] Pull request opened: #${eventObj.payload.pull_request.number} ${title}`)
     .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
     .setURL(eventObj.payload.pull_request.html_url)
     .setDescription(truncateString(eventObj.payload.pull_request.body, 500));
@@ -124,8 +132,10 @@ function formatPullRequestOpenedEvent(eventObj) {
 }
 
 function formatPullRequestClosedEvent(eventObj) {
+  const title = truncateString(eventObj.payload.pull_request.title, 150);
+
   const message = new MessageBuilder()
-    .setTitle(`[${eventObj.repo.name}] Pull request closed: #${eventObj.payload.pull_request.number} ${eventObj.payload.pull_request.title}`)
+    .setTitle(`[${eventObj.repo.name}] Pull request closed: #${eventObj.payload.pull_request.number} ${title}`)
     .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
     .setURL(eventObj.payload.pull_request.html_url);
 
@@ -133,8 +143,10 @@ function formatPullRequestClosedEvent(eventObj) {
 }
 
 function formatPullRequestReopenedEvent(eventObj) {
+  const title = truncateString(eventObj.payload.pull_request.title, 150);
+
   const message = new MessageBuilder()
-    .setTitle(`[${eventObj.repo.name}] Pull request reopened: #${eventObj.payload.pull_request.number} ${eventObj.payload.pull_request.title}`)
+    .setTitle(`[${eventObj.repo.name}] Pull request reopened: #${eventObj.payload.pull_request.number} ${title}`)
     .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
     .setURL(eventObj.payload.pull_request.html_url);
 
@@ -150,9 +162,11 @@ export function formatIssueCommentEvent(eventObj) {
 }
 
 function formatPullRequestComment(eventObj) {
+  const title = truncateString(eventObj.payload.issue.title, 150);
+
   const message = new MessageBuilder()
     .setColor('#bfe5bf')
-    .setTitle(`[${eventObj.repo.name}] New comment on pull request #${eventObj.payload.issue.number}: ${eventObj.payload.issue.title}`)
+    .setTitle(`[${eventObj.repo.name}] New comment on pull request #${eventObj.payload.issue.number}: ${title}`)
     .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
     .setURL(eventObj.payload.comment.html_url)
     .setDescription(truncateString(eventObj.payload.comment.body, 500));
@@ -161,9 +175,11 @@ function formatPullRequestComment(eventObj) {
 }
 
 function formatIssueComment(eventObj) {
+  const title = truncateString(eventObj.payload.issue.title, 150);
+
   const message = new MessageBuilder()
     .setColor('#e68d60')
-    .setTitle(`[${eventObj.repo.name}] New comment on issue #${eventObj.payload.issue.number}: ${eventObj.payload.issue.title}`)
+    .setTitle(`[${eventObj.repo.name}] New comment on issue #${eventObj.payload.issue.number}: ${title}`)
     .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
     .setURL(eventObj.payload.comment.html_url)
     .setDescription(truncateString(eventObj.payload.comment.body, 500));
@@ -177,8 +193,10 @@ export function formatPullRequestReviewEvent(eventObj) {
     return;
   }
 
+  const title = truncateString(eventObj.payload.pull_request.title, 150);
+
   const message = new MessageBuilder()
-    .setTitle(`[${eventObj.repo.name}] Pull request review submitted: #${eventObj.payload.pull_request.number} ${eventObj.payload.pull_request.title}`)
+    .setTitle(`[${eventObj.repo.name}] Pull request review submitted: #${eventObj.payload.pull_request.number} ${title}`)
     .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
     .setURL(eventObj.payload.review.html_url)
     .setDescription(truncateString(eventObj.payload.review.body, 500));
@@ -192,8 +210,10 @@ export function formatPullRequestReviewCommentEvent(eventObj) {
     return;
   }
 
+  const title = truncateString(eventObj.payload.pull_request.title, 150);
+
   const message = new MessageBuilder()
-    .setTitle(`[${eventObj.repo.name}] New review comment on pull request #${eventObj.payload.pull_request.number} ${eventObj.payload.pull_request.title}`)
+    .setTitle(`[${eventObj.repo.name}] New review comment on pull request #${eventObj.payload.pull_request.number} ${title}`)
     .setAuthor(eventObj.actor.login, eventObj.actor.avatar_url, `${BASE}/${eventObj.actor.login}`)
     .setURL(eventObj.payload.comment.html_url)
     .setDescription(truncateString(eventObj.payload.comment.body, 500));
