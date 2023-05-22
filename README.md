@@ -36,3 +36,8 @@ while ignoring forks and watches (actually stars).
 
 Run `node index.js`. It will run in a loop. Ctrl-C to stop it when you
 don't want it anymore.
+
+## License
+
+DIY Webhook is licensed under AGPLv3-only. See
+[`LICENSE.md`](LICENSE.md) for details.
