@@ -32,6 +32,12 @@ This will act as a webhook for the
 [TerryCavanagh/VVVVVV](https://github.com/TerryCavanagh/VVVVVV) repo
 while ignoring forks and watches (actually stars).
 
+`githubAuth` is not strictly required, but is strongly recommended, due
+to the fact that GitHub severely limits the amount of requests that
+unauthenticated users can make. Most GitHub authentication tokens are
+suitable here, such as a [personal access
+token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+
 ## Running
 
 Run `node index.js`. It will run in a loop. Ctrl-C to stop it when you
